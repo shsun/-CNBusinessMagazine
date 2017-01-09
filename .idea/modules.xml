@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/cnbusinessmagazine.iml" filepath="$PROJECT_DIR$/cnbusinessmagazine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shsun_framework/shsun_framework.iml" filepath="$PROJECT_DIR$/shsun_framework/shsun_framework.iml" />
     </modules>
   </component>
 </project>
