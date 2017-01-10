@@ -10,12 +10,11 @@ import java.io.IOException;
  */
 public class BMServer extends NanoHTTPD {
 
-    private final static int PORT = 8080;
 
-    public BMServer() throws IOException {
-        super(PORT);
+    public BMServer(int port) throws IOException {
+        super(port);
         start();
-        System.out.println("\nRunning! Point your browers to http://localhost:" + PORT + "/ \n");
+        System.out.println("\nRunning! Point your browers to http://localhost:" + port + "/ \n");
     }
 
     @Override
