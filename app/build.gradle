@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.android.databinding'
+//apply plugin: 'com.android.databinding'
 
 android {
     compileSdkVersion 24
@@ -18,6 +18,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        preDexLibraries = false
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    jcenter()
 }
 
 dependencies {
@@ -29,6 +39,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
     compile project(':shsun_framework')
-    compile project(':viewpagerindicator')
-    compile project(':universal_image_loader')
+//    compile project(':viewpagerindicator')
+//    compile project(':universal_image_loader')
+    compile(name:'viewpagerindicator-debug', ext:'aar')
+    compile(name:'universal_image_loader-debug', ext:'aar')
 }
