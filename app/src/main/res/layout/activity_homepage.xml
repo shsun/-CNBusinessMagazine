@@ -8,10 +8,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.sshsun.cnbusinessmagazine.MainActivity">
+    tools:context="com.sshsun.cnbusinessmagazine.HomePageActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <com.viewpagerindicator.TabPageIndicator
+        android:id="@+id/vpi_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.viewpagerindicator.TabPageIndicator>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_news"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </android.support.v4.view.ViewPager>
+
 </RelativeLayout>
