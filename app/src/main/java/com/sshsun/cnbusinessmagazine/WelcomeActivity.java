@@ -1,6 +1,5 @@
 package com.sshsun.cnbusinessmagazine;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,13 +20,13 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
 
     // indicator
     // 装点点的ImageView数组
-    private ImageView[] mVPIndicatorImgView;
+    private ImageView[] mIndicatorImgViews;
 
     // 装ImageView数组
     private ImageView[] mVPImageViews;
 
     // 图片资源id
-    private int[] mVPImgIdArray4;
+    private int[] mVPImgIds;
 
     private Button mGoHomePageButton;
 
@@ -48,20 +47,20 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
         });
 
         //载入图片资源ID
-        mVPImgIdArray4 = new int[]{R.drawable.item01, R.drawable.item02, R.drawable.item03, R.drawable.item04,
-                R.drawable.item05, R.drawable.item06, R.drawable.item07, R.drawable.item08};
+        mVPImgIds = new int[]{R.drawable.item01, R.drawable.item02, R.drawable.item03/*, R.drawable.item04,
+                R.drawable.item05, R.drawable.item06, R.drawable.item07, R.drawable.item08*/};
 
 
         // 将点点加入到ViewGroup中
-        mVPIndicatorImgView = new ImageView[mVPImgIdArray4.length];
-        for (int i = 0; i < mVPIndicatorImgView.length; i++) {
+        mIndicatorImgViews = new ImageView[mVPImgIds.length];
+        for (int i = 0; i < mIndicatorImgViews.length; i++) {
             ImageView imageView = new ImageView(this);
             imageView.setLayoutParams(new LayoutParams(10, 10));
-            mVPIndicatorImgView[i] = imageView;
+            mIndicatorImgViews[i] = imageView;
             if (i == 0) {
-                mVPIndicatorImgView[i].setBackgroundResource(R.drawable.page_indicator_focused);
+                mIndicatorImgViews[i].setBackgroundResource(R.drawable.page_indicator_focused);
             } else {
-                mVPIndicatorImgView[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
+                mIndicatorImgViews[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
             }
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT));
@@ -71,11 +70,11 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
         }
 
         // 将图片装载到数组中
-        mVPImageViews = new ImageView[mVPImgIdArray4.length];
+        mVPImageViews = new ImageView[mVPImgIds.length];
         for (int i = 0; i < mVPImageViews.length; i++) {
             ImageView imageView = new ImageView(this);
             mVPImageViews[i] = imageView;
-            imageView.setBackgroundResource(mVPImgIdArray4[i]);
+            imageView.setBackgroundResource(mVPImgIds[i]);
         }
 
         // 设置Adapter
@@ -102,9 +101,9 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
 
         @Override
         public void destroyItem(View container, int position, Object object) {
-            // ???
+            // do not destory any item
             // FIXME
-            ((ViewPager) container).removeView(mVPImageViews[position % mVPImageViews.length]);
+            // ((ViewPager) container).removeView(mVPImageViews[position % mVPImageViews.length]);
         }
 
         /**
@@ -118,7 +117,6 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
             } catch (Exception e) {
                 //handler something
             }
-
             return mVPImageViews[idx];
         }
     }
@@ -153,14 +151,12 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
      * @param selectItems the index of indicator
      */
     private void updateVPindicator(int selectItems) {
-        for (int i = 0; i < mVPIndicatorImgView.length; i++) {
+        for (int i = 0; i < mIndicatorImgViews.length; i++) {
             if (i == selectItems) {
-                mVPIndicatorImgView[i].setBackgroundResource(R.drawable.page_indicator_focused);
+                mIndicatorImgViews[i].setBackgroundResource(R.drawable.page_indicator_focused);
             } else {
-                mVPIndicatorImgView[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
+                mIndicatorImgViews[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
             }
         }
     }
-
 }
-

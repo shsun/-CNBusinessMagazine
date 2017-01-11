@@ -22,3 +22,16 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task  installApkFiles(type: Exec){
+    def  purposeDir = "$buildDir/outputs/apk/"
+    workingDir  =  "$purposeDir"
+    def myCommond = ['adb', "install",'Sample-debug.apk']
+    commandLine  myCommond
+}
+
+task startDemo(type:Exec, dependsOn:installApkFiles){
+    def packageName ='com.sshsun.cnbusinessmagazine'
+    commandLine  "adb","shell","am","start","-n",
+            "$packageName/.WelcomeActivity"
+}
