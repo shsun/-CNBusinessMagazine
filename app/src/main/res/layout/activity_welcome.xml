@@ -22,6 +22,28 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal" >
         </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_go_homepage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="立即体验"
+            android:textSize="24dp"
+            android:textColor="@color/tomato"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="150dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:textStyle="normal|bold"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:elevation="0dp"
+            android:visibility="invisible">
+        </Button>
+
     </RelativeLayout>
 
 </FrameLayout>

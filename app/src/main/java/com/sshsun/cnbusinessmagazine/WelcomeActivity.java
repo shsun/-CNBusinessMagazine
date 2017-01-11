@@ -2,6 +2,7 @@ package com.sshsun.cnbusinessmagazine;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -9,54 +10,59 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 public class WelcomeActivity extends Activity implements OnPageChangeListener {
-    /**
-     * ViewPager
-     */
-    private ViewPager viewPager;
 
-    /**
-     * 装点点的ImageView数组
-     */
-    private ImageView[] tips;
+    // ViewPager
+    private ViewPager mViewPager;
 
-    /**
-     * 装ImageView数组
-     */
-    private ImageView[] mImageViews;
+    // indicator
+    // 装点点的ImageView数组
+    private ImageView[] mVPIndicatorImgView;
 
-    /**
-     * 图片资源id
-     */
-    private int[] imgIdArray;
+    // 装ImageView数组
+    private ImageView[] mVPImageViews;
+
+    // 图片资源id
+    private int[] mVPImgIdArray4;
+
+    private Button mGoHomePageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
         ViewGroup group = (ViewGroup) findViewById(R.id.viewGroup);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        this.mGoHomePageButton = (Button) this.findViewById(R.id.btn_go_homepage);
+        this.mGoHomePageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WelcomeActivity.this, HomePageActivity.class);
+                WelcomeActivity.this.startActivity(intent);
+            }
+        });
 
         //载入图片资源ID
-        imgIdArray = new int[]{R.drawable.item01, R.drawable.item02, R.drawable.item03, R.drawable.item04,
+        mVPImgIdArray4 = new int[]{R.drawable.item01, R.drawable.item02, R.drawable.item03, R.drawable.item04,
                 R.drawable.item05, R.drawable.item06, R.drawable.item07, R.drawable.item08};
 
 
-        //将点点加入到ViewGroup中
-        tips = new ImageView[imgIdArray.length];
-        for (int i = 0; i < tips.length; i++) {
+        // 将点点加入到ViewGroup中
+        mVPIndicatorImgView = new ImageView[mVPImgIdArray4.length];
+        for (int i = 0; i < mVPIndicatorImgView.length; i++) {
             ImageView imageView = new ImageView(this);
             imageView.setLayoutParams(new LayoutParams(10, 10));
-            tips[i] = imageView;
+            mVPIndicatorImgView[i] = imageView;
             if (i == 0) {
-                tips[i].setBackgroundResource(R.drawable.page_indicator_focused);
+                mVPIndicatorImgView[i].setBackgroundResource(R.drawable.page_indicator_focused);
             } else {
-                tips[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
+                mVPIndicatorImgView[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
             }
-
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,
                     LayoutParams.WRAP_CONTENT));
             layoutParams.leftMargin = 5;
@@ -64,28 +70,25 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
             group.addView(imageView, layoutParams);
         }
 
-
-        //将图片装载到数组中
-        mImageViews = new ImageView[imgIdArray.length];
-        for (int i = 0; i < mImageViews.length; i++) {
+        // 将图片装载到数组中
+        mVPImageViews = new ImageView[mVPImgIdArray4.length];
+        for (int i = 0; i < mVPImageViews.length; i++) {
             ImageView imageView = new ImageView(this);
-            mImageViews[i] = imageView;
-            imageView.setBackgroundResource(imgIdArray[i]);
+            mVPImageViews[i] = imageView;
+            imageView.setBackgroundResource(mVPImgIdArray4[i]);
         }
 
-        //设置Adapter
-        viewPager.setAdapter(new MyAdapter());
-        //设置监听，主要是设置点点的背景
-        viewPager.setOnPageChangeListener(this);
-        //设置ViewPager的默认项, 设置为长度的100倍，这样子开始就能往左滑动
-        viewPager.setCurrentItem((mImageViews.length) * 100);
+        // 设置Adapter
+        mViewPager.setAdapter(new WelcomePagerAdapter());
+        // 设置监听，主要是设置点点的背景
+        mViewPager.setOnPageChangeListener(this);
+        // 设置ViewPager的默认项, 设置为长度的100倍，这样子开始就能往左滑动
+        mViewPager.setCurrentItem((mVPImageViews.length) * 100);
 
     }
 
-    /**
-     * @author xiaanming
-     */
-    public class MyAdapter extends PagerAdapter {
+
+    public final class WelcomePagerAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
@@ -101,8 +104,7 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
         public void destroyItem(View container, int position, Object object) {
             // ???
             // FIXME
-
-            ((ViewPager) container).removeView(mImageViews[position % mImageViews.length]);
+            ((ViewPager) container).removeView(mVPImageViews[position % mVPImageViews.length]);
         }
 
         /**
@@ -110,12 +112,14 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
          */
         @Override
         public Object instantiateItem(View container, int position) {
+            int idx = position % mVPImageViews.length;
             try {
-                ((ViewPager) container).addView(mImageViews[position % mImageViews.length], 0);
+                ((ViewPager) container).addView(mVPImageViews[idx], 0);
             } catch (Exception e) {
                 //handler something
             }
-            return mImageViews[position % mImageViews.length];
+
+            return mVPImageViews[idx];
         }
     }
 
@@ -131,20 +135,29 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
 
     @Override
     public void onPageSelected(int arg0) {
-        setImageBackground(arg0 % mImageViews.length);
+        int idx = arg0 % mVPImageViews.length;
+
+        updateVPindicator(idx);
+
+        if (idx == mVPImageViews.length - 1) {
+            this.mGoHomePageButton.setVisibility(View.VISIBLE);
+        } else {
+            this.mGoHomePageButton.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     /**
      * 设置选中的tip的背景
      *
-     * @param selectItems
+     * @param selectItems the index of indicator
      */
-    private void setImageBackground(int selectItems) {
-        for (int i = 0; i < tips.length; i++) {
+    private void updateVPindicator(int selectItems) {
+        for (int i = 0; i < mVPIndicatorImgView.length; i++) {
             if (i == selectItems) {
-                tips[i].setBackgroundResource(R.drawable.page_indicator_focused);
+                mVPIndicatorImgView[i].setBackgroundResource(R.drawable.page_indicator_focused);
             } else {
-                tips[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
+                mVPIndicatorImgView[i].setBackgroundResource(R.drawable.page_indicator_unfocused);
             }
         }
     }
