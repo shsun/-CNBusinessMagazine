@@ -1,25 +1,29 @@
 package com.sshsun.cnbusinessmagazine;
 
+import java.io.IOException;
+
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.Toast;
 
 import com.viewpagerindicator.PageIndicator;
+import com.viewpagerindicator.TabPageIndicator;
 
 import android.support.v4.view.ViewPager;
 
-import android.os.Bundle;
-
 import com.shsunframework.utils.MathUtils;
 import com.sshsun.cnbusinessmagazine.net.BMServer;
-import com.viewpagerindicator.TabPageIndicator;
 
-import java.io.IOException;
-
+/**
+ *
+ */
 public class HomePageActivity extends AppCompatActivity {
-
-
     private static final String SP_NAME = "isAppLaunched";
     private static final String SP_KEY_IS_APP_LAUNCHED = "isAppLaunched";
     private static final String SP_KEY_PKG_VERSION_CODE = "versionCode";
@@ -28,12 +32,10 @@ public class HomePageActivity extends AppCompatActivity {
 
     private BMServer mServer = null;
     private int mBMServerStartCounter = 0;
-
-
+    
     NewsTabPagerAdapter mAdapter;
     ViewPager mPager;
     PageIndicator mIndicator;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,6 @@ public class HomePageActivity extends AppCompatActivity {
             editor.putInt(SP_KEY_PKG_VERSION_NAME, info.versionCode);
 
 
-
             // Unlike commit(), which writes its preferences out to persistent storage synchronously,
             // apply() commits its changes to the in-memory SharedPreferences immediately but starts
             // an asynchronous commit to disk and you won't be notified of any failures.
@@ -66,7 +67,7 @@ public class HomePageActivity extends AppCompatActivity {
             isAppLaunched = false;
         }
 
-        mPager = (ViewPager)this.findViewById(R.id.vp_news);
+        mPager = (ViewPager) this.findViewById(R.id.vp_news);
         mPager.setAdapter(new NewsTabPagerAdapter(getSupportFragmentManager()));//给viewpager设置数据适配器
 
 
@@ -88,5 +89,31 @@ public class HomePageActivity extends AppCompatActivity {
         } catch (IOException e) {
             startBMServer();
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        DialogInterface.OnClickListener dialogOnclicListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case Dialog.BUTTON_POSITIVE:
+                        // System.exit(0);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        break;
+                    case Dialog.BUTTON_NEGATIVE:
+                        Toast.makeText(HomePageActivity.this, "吓死宝宝了, 还好不是真退出！！！", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示");
+        builder.setMessage("是否确认退出?");
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setPositiveButton("确认", dialogOnclicListener);
+        builder.setNegativeButton("取消", dialogOnclicListener);
+        builder.create().show();
     }
 }
