@@ -1,4 +1,4 @@
-package com.sshsun.cnbusinessmagazine.activity.widget;
+package com.sshsun.cnbusinessmagazine.homepage.widget;
 
 /*
  * Copyright (C) 2011 The Android Open Source Project

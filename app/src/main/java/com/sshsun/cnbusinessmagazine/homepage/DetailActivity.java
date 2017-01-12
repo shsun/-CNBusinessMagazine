@@ -1,4 +1,4 @@
-package com.sshsun.cnbusinessmagazine.activity;
+package com.sshsun.cnbusinessmagazine.homepage;
 
 import android.app.Activity;
 import android.os.Bundle;

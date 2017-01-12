@@ -1,4 +1,4 @@
-package com.sshsun.cnbusinessmagazine.activity;
+package com.sshsun.cnbusinessmagazine.homepage;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -15,11 +15,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.sshsun.cnbusinessmagazine.activity.base.AbstractBasicFragment;
-import com.sshsun.cnbusinessmagazine.activity.fragment.ActivityFragment;
-import com.sshsun.cnbusinessmagazine.activity.fragment.AmuseFragment;
-import com.sshsun.cnbusinessmagazine.activity.fragment.FindFragment;
-import com.sshsun.cnbusinessmagazine.activity.fragment.NewestFragment;
+import com.sshsun.cnbusinessmagazine.core.AbstractBasicFragment;
+import com.sshsun.cnbusinessmagazine.homepage.fragment.ActivityFragment;
+import com.sshsun.cnbusinessmagazine.homepage.fragment.AmuseFragment;
+import com.sshsun.cnbusinessmagazine.homepage.fragment.FindFragment;
+import com.sshsun.cnbusinessmagazine.homepage.fragment.NewestFragment;
 
 
 /**
@@ -76,7 +76,7 @@ public class HomePageActivity extends AppCompatActivity {
                         // android.os.Process.killProcess(android.os.Process.myPid());
                         break;
                     case Dialog.BUTTON_NEGATIVE:
-                        Toast.makeText(com.sshsun.cnbusinessmagazine.activity.HomePageActivity.this, "吓死宝宝了, 还好不是真退出！！！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(com.sshsun.cnbusinessmagazine.homepage.HomePageActivity.this, "吓死宝宝了, 还好不是真退出！！！", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }

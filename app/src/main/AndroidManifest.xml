@@ -15,7 +15,7 @@
         </activity>
 
         <activity
-            android:name="com.sshsun.cnbusinessmagazine.activity.HomePageActivity"
+            android:name="com.sshsun.cnbusinessmagazine.homepage.HomePageActivity"
             android:theme="@style/Theme.AppCompat">
         </activity>
 

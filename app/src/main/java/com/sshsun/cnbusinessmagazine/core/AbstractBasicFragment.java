@@ -1,4 +1,4 @@
-package com.sshsun.cnbusinessmagazine.activity.base;
+package com.sshsun.cnbusinessmagazine.core;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 public abstract class AbstractBasicFragment extends Fragment {
 
     private static final String TAG = "AbstractBasicFragment";
+
+    // by ms
+    // protected int mTimeoutOfHttpRequest = 1000 * 5;
 
     protected View mRootView;
     public Context mContext;
@@ -73,7 +76,15 @@ public abstract class AbstractBasicFragment extends Fragment {
         }
     }
 
+    /**
+     * creeate UIViewComponent here
+     *
+     * @return
+     */
     public abstract View initView();
 
+    /**
+     * fetch data here
+     */
     public abstract void initData();
 }
