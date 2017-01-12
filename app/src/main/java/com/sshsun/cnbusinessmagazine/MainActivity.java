@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-public class WelcomeActivity extends Activity implements OnPageChangeListener {
+public class MainActivity extends Activity implements OnPageChangeListener {
 
     // ViewPager
     private ViewPager mViewPager;
@@ -33,7 +33,7 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_main);
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         ViewGroup group = (ViewGroup) findViewById(R.id.viewGroup);
@@ -41,8 +41,8 @@ public class WelcomeActivity extends Activity implements OnPageChangeListener {
         this.mGoHomePageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WelcomeActivity.this, com.sshsun.cnbusinessmagazine.activity.HomePageActivity.class);
-                WelcomeActivity.this.startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, com.sshsun.cnbusinessmagazine.activity.HomePageActivity.class);
+                MainActivity.this.startActivity(intent);
             }
         });
 
