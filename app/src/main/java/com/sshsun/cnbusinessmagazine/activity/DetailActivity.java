@@ -8,7 +8,6 @@ import com.sshsun.cnbusinessmagazine.R;
 /**
  * Created by shsun on 17/1/9.
  */
-
 public class DetailActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

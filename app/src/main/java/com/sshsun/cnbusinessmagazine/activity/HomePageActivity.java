@@ -15,7 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.sshsun.cnbusinessmagazine.activity.base.BaseFragment;
+import com.sshsun.cnbusinessmagazine.activity.base.AbstractBasicFragment;
 import com.sshsun.cnbusinessmagazine.activity.fragment.ActivityFragment;
 import com.sshsun.cnbusinessmagazine.activity.fragment.AmuseFragment;
 import com.sshsun.cnbusinessmagazine.activity.fragment.FindFragment;
@@ -23,11 +23,11 @@ import com.sshsun.cnbusinessmagazine.activity.fragment.NewestFragment;
 
 
 /**
- * 实现ViewPager与Fragment的联合使用以及ViewPager的预加载问题处理
+ * Created by shsun on 17/1/9.
  */
 public class HomePageActivity extends AppCompatActivity {
     private String[] mTabTitles = new String[]{};
-    private BaseFragment[] fragments = {new NewestFragment(), new ActivityFragment(),
+    private AbstractBasicFragment[] fragments = {new NewestFragment(), new ActivityFragment(),
             new AmuseFragment(), new FindFragment(), new NewestFragment(), new NewestFragment(), new NewestFragment()};
 
     @Override
@@ -67,13 +67,13 @@ public class HomePageActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        DialogInterface.OnClickListener dialogOnclicListener = new DialogInterface.OnClickListener() {
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case Dialog.BUTTON_POSITIVE:
-                        // System.exit(0);
-                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(0);
+                        // android.os.Process.killProcess(android.os.Process.myPid());
                         break;
                     case Dialog.BUTTON_NEGATIVE:
                         Toast.makeText(com.sshsun.cnbusinessmagazine.activity.HomePageActivity.this, "吓死宝宝了, 还好不是真退出！！！", Toast.LENGTH_SHORT).show();
@@ -85,11 +85,10 @@ public class HomePageActivity extends AppCompatActivity {
         builder.setTitle("提示");
         builder.setMessage("是否确认退出?");
         builder.setIcon(R.mipmap.ic_launcher);
-        builder.setPositiveButton("确认", dialogOnclicListener);
-        builder.setNegativeButton("取消", dialogOnclicListener);
+        builder.setPositiveButton("确认", listener);
+        builder.setNegativeButton("取消", listener);
         builder.create().show();
     }
-
 
     private class FragmentAdapter extends FragmentPagerAdapter {
         // FragmentPagerAdapter与FragmentStatePagerAdapter区别

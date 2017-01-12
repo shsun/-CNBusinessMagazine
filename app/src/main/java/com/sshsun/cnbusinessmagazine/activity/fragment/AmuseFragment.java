@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sshsun.cnbusinessmagazine.activity.base.BaseFragment;
+import com.sshsun.cnbusinessmagazine.activity.base.AbstractBasicFragment;
 
 /**
- * Created by Pinger on 2016/10/10.
+ * Created by shsun on 17/1/12.
  */
-public class AmuseFragment extends BaseFragment {
+public class AmuseFragment extends AbstractBasicFragment {
 
     private TextView mTextView;
 

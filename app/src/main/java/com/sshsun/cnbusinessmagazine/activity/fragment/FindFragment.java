@@ -1,22 +1,19 @@
 package com.sshsun.cnbusinessmagazine.activity.fragment;
 
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sshsun.cnbusinessmagazine.activity.base.BaseFragment;
+import com.sshsun.cnbusinessmagazine.activity.base.AbstractBasicFragment;
 
 /**
- * Created by Pinger on 2016/10/10.
+ * Created by shsun on 17/1/12.
  */
-public class FindFragment extends BaseFragment {
+public class FindFragment extends AbstractBasicFragment {
+
+    private static final String TAG = "FindFragment";
 
     private TextView mTextView;
 

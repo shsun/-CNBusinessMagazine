@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 
 public class MainActivity extends Activity implements OnPageChangeListener {
 
+    private static final String TAG = "MainActivity";
+
     // ViewPager
     private ViewPager mViewPager;
 
