@@ -49,7 +49,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_homepage);
+        setContentView(R.layout.backup_activity_homepage);
         startBMServer();
 
         boolean isAppLaunched = false;

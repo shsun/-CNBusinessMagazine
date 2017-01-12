@@ -24,7 +24,7 @@ public class ItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View contextView = inflater.inflate(R.layout.fragment_item, container, false);
+        View contextView = inflater.inflate(R.layout.backup_fragment_item, container, false);
         TextView mTextView = (TextView) contextView.findViewById(R.id.textview);
         // 获取Activity传递过来的参数
         Bundle mBundle = getArguments();
