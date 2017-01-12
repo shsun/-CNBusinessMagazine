@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".HomePageActivity"
+            android:name=".bakup.HomePageActivity"
             android:theme="@style/Theme.AppCompat">
         </activity>
 

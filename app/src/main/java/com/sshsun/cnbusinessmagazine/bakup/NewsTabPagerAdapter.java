@@ -1,6 +1,6 @@
-package com.sshsun.cnbusinessmagazine;
+package com.sshsun.cnbusinessmagazine.bakup;
 
-import com.viewpagerindicator.TabPageIndicator;
+import com.sshsun.cnbusinessmagazine.R;
 
 
 import android.support.v4.app.Fragment;

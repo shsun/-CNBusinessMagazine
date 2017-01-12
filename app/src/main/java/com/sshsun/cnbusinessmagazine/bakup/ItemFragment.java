@@ -1,4 +1,4 @@
-package com.sshsun.cnbusinessmagazine;
+package com.sshsun.cnbusinessmagazine.bakup;
 
 
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.sshsun.cnbusinessmagazine.R;
 
 /**
  * Created by shsun on 17/1/11.

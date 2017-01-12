@@ -1,4 +1,4 @@
-package com.sshsun.cnbusinessmagazine;
+package com.sshsun.cnbusinessmagazine.bakup;
 
 import java.io.IOException;
 
@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.sshsun.cnbusinessmagazine.R;
 import com.viewpagerindicator.PageIndicator;
 import com.viewpagerindicator.TabPageIndicator;
 
