@@ -37,6 +37,7 @@ dependencies {
     })
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:design:23.2.0'
     testCompile 'junit:junit:4.12'
     compile project(':shsun_framework')
 //    compile project(':viewpagerindicator')

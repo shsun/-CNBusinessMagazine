@@ -7,6 +7,9 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Build;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,10 +32,16 @@ public class HomePageActivity extends AppCompatActivity {
     private static final String SP_KEY_PKG_VERSION_CODE = "versionCode";
     private static final String SP_KEY_PKG_VERSION_NAME = "versionName";
 
+    /**
+     * Tab标题
+     */
+    private static final String[] TITLE = new String[] { "头条", "房产", "另一面", "女人",
+            "财经", "数码", "情感", "科技" };
+
 
     private BMServer mServer = null;
     private int mBMServerStartCounter = 0;
-    
+
     NewsTabPagerAdapter mAdapter;
     ViewPager mPager;
     PageIndicator mIndicator;
@@ -67,14 +76,37 @@ public class HomePageActivity extends AppCompatActivity {
             isAppLaunched = false;
         }
 
-        mPager = (ViewPager) this.findViewById(R.id.vp_news);
-        mPager.setAdapter(new NewsTabPagerAdapter(getSupportFragmentManager()));//给viewpager设置数据适配器
+        // ViewPager的adapter
+        FragmentPagerAdapter adapter = new TabPageIndicatorAdapter(getSupportFragmentManager());
+        mPager = (ViewPager)findViewById(R.id.vp_news);
+        mPager.setAdapter(adapter);
+
 
 
         // ViewPagerIndicator声明
         TabPageIndicator indicator = (TabPageIndicator) this
                 .findViewById(R.id.vpi_indicator);
         indicator.setViewPager(mPager);// 绑定必须要在viewpager设置好数据适配器之后
+
+
+// 如果我们要对ViewPager设置监听，用indicator设置就行了
+        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int arg0) {
+                Toast.makeText(getApplicationContext(), TITLE[arg0], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+
+            }
+        });
 
     }
 
@@ -116,4 +148,32 @@ public class HomePageActivity extends AppCompatActivity {
         builder.setNegativeButton("取消", dialogOnclicListener);
         builder.create().show();
     }
+
+
+    final class TabPageIndicatorAdapter extends FragmentPagerAdapter {
+        public TabPageIndicatorAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // 新建一个Fragment来展示ViewPager item的内容，并传递参数
+            Fragment fragment = new ItemFragment();
+            Bundle args = new Bundle();
+            args.putString("arg", TITLE[position]);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return TITLE[position % TITLE.length];
+        }
+
+        @Override
+        public int getCount() {
+            return TITLE.length;
+        }
+    }
+
 }
