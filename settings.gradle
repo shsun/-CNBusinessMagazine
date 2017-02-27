@@ -1,1 +1,0 @@
-include ':app', ':shsun_framework', ':viewpagerindicator', ':universal_image_loader'
