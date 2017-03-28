@@ -1,0 +1,107 @@
+#!/usr/bin/env python
+
+# **************************************************************************************
+# 			                      ______
+# 			                   .-"      "-.
+# 			                  /    SSH     \
+# 			                 |              |
+# 			                 |,  .-.  .-.  ,|
+# 			                 | )(__/  \__)( |
+# 			                 |/     /\     \|
+# 			       (@_       (_     ^^     _)
+# 			  _     ) \_______\__|IIIIII|__/__________________________
+# 			 (_)@8@8{}<________|-\IIIIII/-|___________________________>
+# 			        )_/        \          /
+# 			       (@           `--------`                    
+#
+# **************************************************************************************
+
+import glob
+import os.path
+import sys,os,string
+import commands
+from subprocess import call
+
+import smtplib 
+from email.mime.text import MIMEText
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEBase import MIMEBase 
+from smtplib import SMTP, quotedata, CRLF, SMTPDataError  
+from email import Encoders  
+
+import codecs
+#import chardet
+
+#
+# send email
+# 
+def send_mail(mail_host, mail_user, mail_pass, mail_postfix, to_list, sub, context):
+	'''''
+	to_list: 
+	sub: 
+	context: 
+	send_mail("username@hostname.com","sub","context")
+	''' 
+	me = mail_user + "<"+mail_user+"@"+mail_postfix+">" 
+	#msg = MIMEText(context)
+	#msg = MIMEText(context, _subtype = 'html', _charset = 'utf-8')
+	msg = MIMEText(context, _subtype = 'html')
+	#msg = MIMEMultipart()  
+	msg['Subject'] = sub
+	msg['From'] = me 
+	msg['To'] = ";".join(to_list)
+	try: 
+		send_smtp = smtplib.SMTP() 
+		send_smtp.connect(mail_host) 
+		send_smtp.login(mail_user, mail_pass) 
+		send_smtp.sendmail(me, to_list, msg.as_string()) 
+		send_smtp.close() 
+		return True 
+	except Exception, ex: 
+		sys.stderr.write( str(ex) ) 
+		return False 
+
+def main( argv ):
+	print ("\n========================================hook script " + sys.argv[0])
+	
+	
+	# 
+	MIN_CHARS = 5
+
+	# project name
+	status,output = commands.getstatusoutput('pwd')
+	project_name = output.split('/')[-1]
+	
+	# fetch & write commit-message to foo.diff
+	f = open(sys.argv[1], 'r')
+	commit_msg = f.read().strip()
+	f.close()
+	# TODO, can fetch more information of this ticket
+	if commit_msg.split(' ')[0].upper().find('ADS-') == 0 :
+		commit_msg = 'http://bug.1verge.net/browse/' + commit_msg.split(' ')[0].upper() + '\n\n' + commit_msg+'\n\n\n\n'
+	f = open('foo.diff', 'w')
+	f.write( ('there is no message for this commit' if len(commit_msg.strip())<=MIN_CHARS else commit_msg) + '\n' )
+	f.close( )
+	
+	# send email to team members with diffs.
+	mailto_list = ["zhukaiquan@youku.com", "addata@youku.com", "dongwenwu@youku.com","hanxiansheng@youku.com","yanghanguang@youku.com","xuxianan@youku.com"]
+	mail_host = "10.10.0.19" 
+	mail_user = "systeminformation"
+	mail_pass = "111aaaAAA" 
+	mail_postfix = "youku.com" 
+	mail_sub = "Notification-Of-"+project_name
+	status,output = commands.getstatusoutput('git diff HEAD >> foo.diff;cat foo.diff | python ./tools/diff2html.py > foo.html')
+	f = open('foo.html', 'r')
+	mail_context = f.read()
+	f.close()
+	status = send_mail(mail_host, mail_user, mail_pass, mail_postfix, mailto_list, mail_sub, mail_context)	
+	if (True == status) :
+		print ("\nexecute. send mail success -------------> :)\n")
+	else :
+		print ("\nexecute. send mail fail -------------> :(\n")
+	status,output = commands.getstatusoutput('rm -rfv foo.*')
+	
+	sys.exit( 0 )
+
+if __name__ == '__main__' :
+	sys.exit(main(sys.argv))

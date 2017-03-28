@@ -1,0 +1,31 @@
+
+scp.exe is Private Shell Secure Copy utility. It is automatically installed along with the main program. scp.exe is designed to be used in batch files or with third-party applications.
+
+Usage:
+scp.exe [options] source1 [source2] ... [sourceN] destination
+
+options
+scp.exe recognizes all the same options as ssh.exe. For more information look the ssh.exe - command line parameters topic.
+
+Additionally the next options can be used with scp.exe:
+
+-r
+
+Tells scp.exe to recurse through subdirectories.
+
+--no-sftp
+
+Tells scp.exe not to try to use SecureFTP. In this case information is transferred in an insecure way and scp.exe plays role of the ordinary file copying utility.
+
+source1 .. sourceN
+Specifies the source files to be copied. If the source file is located on the local machine where you run scp.exe you may enter a full path here or use only a filename to specify the a in the current directory.
+
+If the source file is located on the remote machine, you should enter its name in the following format: <user>@<host>:<path> where <user> is your user name (login), <host> is host where the file reside and <path> is the path to the file - e.g. john@myhost.com:/home/john/mail10.txt
+
+destination
+Specifies the destination path where the file(s) will be copied to. To enter the destination path, you should follow the same rules as for the source files.
+
+Usage examples:
+scp.exe newletter.txt john@myhost.com:/home/john/ - secure upload of the newletter.txt file to the server myhost.com in the folder /home/john.
+
+scp.exe --profile "john" john@myhost.com:/home/john/*.txt . - secure download of all files with *.txt extension from the folder /home/john of the server myhost.com to the current local folder using the Private Shell profile "john". Pay attention to the dot at the end of the command - it is used to specify the current folder on the local machine.
